@@ -25,7 +25,7 @@ public class adminLoginUseCases {
 			String uername=sc.next();
 			System.out.println("Enter Admin Password");
 			String password=sc.next();
-		while(true)	{
+		
 			try {
 				Admin admin=dao.loginAdmin(uername, password);
 				System.out.println("Welcome:  "+admin.getName());
@@ -48,7 +48,7 @@ public class adminLoginUseCases {
 			return;
 		}else {
 			System.out.println("Welcome");
-		}
+		
 		}
 
 	}
