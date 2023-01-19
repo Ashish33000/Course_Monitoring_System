@@ -5,9 +5,11 @@ import java.util.List;
 import com.masai.exception.AdminException;
 import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
+import com.masai.exception.FacultyException;
 import com.masai.model.Admin;
 import com.masai.model.Batch;
 import com.masai.model.Course;
+import com.masai.model.Faculty;
 import com.masai.model.ReportForBatchDto;
 
 public interface AdminDao {
@@ -25,6 +27,14 @@ public interface AdminDao {
 	public List<Batch> viewAllBatchDetails()throws BatchException;
 	public String deleteBatchByName(String bname) throws BatchException;
 	public List<ReportForBatchDto> coursePlanReportForBatch()throws BatchException;
+	
+	
+	
+	//faculty
+	public String createFaculty(Faculty faculty) throws FacultyException;
+	public List<Faculty> viewAllFacultyDetails() throws FacultyException;
+	public String deleteFacultyByName(String fname) throws FacultyException;
+	
 	
 	
 

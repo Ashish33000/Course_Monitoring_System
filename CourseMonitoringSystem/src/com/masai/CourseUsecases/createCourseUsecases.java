@@ -48,7 +48,7 @@ public class createCourseUsecases {
 			System.out.println("Do You want to Register More Courses?(Y/N)");
 			String res=sc.next();
 			if(res.equalsIgnoreCase("N")) {
-				System.out.println("Thank You for Registration");
+				System.out.println("Thank You for course Registration");
 				break;
 			}
 			

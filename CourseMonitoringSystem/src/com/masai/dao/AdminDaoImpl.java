@@ -10,9 +10,11 @@ import java.util.List;
 import com.masai.exception.AdminException;
 import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
+import com.masai.exception.FacultyException;
 import com.masai.model.Admin;
 import com.masai.model.Batch;
 import com.masai.model.Course;
+import com.masai.model.Faculty;
 import com.masai.model.ReportForBatchDto;
 import com.masai.utility.DBUtil;
 
@@ -178,18 +180,96 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public List<Batch> viewAllBatchDetails() throws BatchException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Batch> batches=new ArrayList<>();
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("select * from batch");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				Batch batch=new Batch();
+				batch.setBid(rs.getInt("bid"));
+				batch.setBname(rs.getString("bname"));
+				batch.setCid(rs.getInt("cid"));
+				batch.setFid(rs.getInt("fid"));
+				batch.setNumberOfStudent(rs.getInt("numberOfStudent"));
+				batch.setBatchStartDate(rs.getString("batchStartDate"));
+				batch.setDuration(rs.getString("duration"));
+				batches.add(batch);
+				
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BatchException(e.getMessage());
+		}
+		
+		return batches;
 	}
 
 	@Override
 	public String deleteBatchByName(String bname) throws BatchException {
+		String message="Batch Not Deleted.......";
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("delete from batch where bname=?");
+			ps.setString(1, bname);
+			
+			int x=ps.executeUpdate();
+			if(x>0) {
+				message="Batch Deleted Sucessfully.....";
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BatchException(e.getMessage());
+		}
+		return message;
+	}
+
+	@Override
+	public List<ReportForBatchDto> coursePlanReportForBatch() throws BatchException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+//faculty
+	@Override
+	public String createFaculty(Faculty faculty) throws FacultyException {
+		String message="Faculty Not Created.......";
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("insert into faculty(fname,address,mobile,email,password) values(?,?,?,?,?)");
+			ps.setString(1, faculty.getFname());			
+			ps.setString(2,faculty.getAddress());
+			ps.setString(3, faculty.getMobile());		
+			ps.setString(4, faculty.getEmail());
+			ps.setString(5, faculty.getPassword());
+			
+			
+			int x=ps.executeUpdate();
+			if(x>0) {
+				message="Faculty Created Sucessfully.....";
+			}else {
+				throw new FacultyException("invalid course and facultyId");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FacultyException(e.getMessage());
+		}
+		return message;
+	}
+
+	@Override
+	public List<Faculty> viewAllFacultyDetails() throws FacultyException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ReportForBatchDto> coursePlanReportForBatch() throws BatchException {
+	public String deleteFacultyByName(String fname) throws FacultyException {
 		// TODO Auto-generated method stub
 		return null;
 	}
