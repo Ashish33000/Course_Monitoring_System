@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.masai.exception.AdminException;
+import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
 import com.masai.model.Admin;
+import com.masai.model.Batch;
 import com.masai.model.Course;
+import com.masai.model.ReportForBatchDto;
 import com.masai.utility.DBUtil;
 
 public class AdminDaoImpl implements AdminDao {
@@ -144,6 +147,51 @@ public class AdminDaoImpl implements AdminDao {
 			throw new CourseException(e.getMessage());
 		}
 		return message;
+	}
+
+	@Override
+	public String createBatch(Batch batch) throws BatchException {
+		String message="Batch Not Created.......";
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("insert into batch(bname,numberOfStudent,batchStartDate,duration,cid,fid) values(?,?,?,?,?,?)");
+			ps.setString(1, batch.getBname());
+			ps.setInt(2, batch.getNumberOfStudent());
+			ps.setString(3,batch.getBatchStartDate());
+			ps.setString(4, batch.getDuration());
+			ps.setInt(5, batch.getCid());
+			ps.setInt(6, batch.getFid());
+			int x=ps.executeUpdate();
+			if(x>0) {
+				message="Batch Created Sucessfully.....";
+			}else {
+				throw new BatchException("invalid course and facultyId");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BatchException(e.getMessage());
+		}
+		return message;
+	}
+
+	@Override
+	public List<Batch> viewAllBatchDetails() throws BatchException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteBatchByName(String bname) throws BatchException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ReportForBatchDto> coursePlanReportForBatch() throws BatchException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
