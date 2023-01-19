@@ -264,8 +264,28 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public List<Faculty> viewAllFacultyDetails() throws FacultyException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Faculty> facultys=new ArrayList<>();
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("select * from faculty");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				Faculty faculty=new Faculty();
+				faculty.setFid(rs.getInt("fid"));
+				faculty.setFname(rs.getString("fname"));
+				faculty.setAddress(rs.getString("address"));
+				faculty.setEmail(rs.getString("email"));
+				faculty.setPassword(rs.getString("password"));	
+				
+				facultys.add(faculty);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FacultyException(e.getMessage());
+		}
+		
+		return facultys;
 	}
 
 	@Override

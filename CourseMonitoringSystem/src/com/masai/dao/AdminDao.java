@@ -34,6 +34,7 @@ public interface AdminDao {
 	public String createFaculty(Faculty faculty) throws FacultyException;
 	public List<Faculty> viewAllFacultyDetails() throws FacultyException;
 	public String deleteFacultyByName(String fname) throws FacultyException;
+
 	
 	
 	
