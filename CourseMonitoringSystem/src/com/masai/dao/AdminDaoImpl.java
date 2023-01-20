@@ -264,14 +264,49 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public List<Faculty> viewAllFacultyDetails() throws FacultyException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Faculty> facultys=new ArrayList<>();
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("select * from faculty");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				Faculty faculty=new Faculty();
+				faculty.setFid(rs.getInt("fid"));
+				faculty.setFname(rs.getString("fname"));
+				faculty.setAddress(rs.getString("address"));
+				faculty.setEmail(rs.getString("email"));
+				faculty.setPassword(rs.getString("password"));	
+				
+				facultys.add(faculty);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FacultyException(e.getMessage());
+		}
+		
+		return facultys;
 	}
 
 	@Override
 	public String deleteFacultyByName(String fname) throws FacultyException {
-		// TODO Auto-generated method stub
-		return null;
+		String message="Faculty Not Deleted.......";
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("delete from faculty where fname=?");
+			ps.setString(1, fname);
+			
+			int x=ps.executeUpdate();
+			if(x>0) {
+				message="Faculty Deleted Sucessfully.....";
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FacultyException(e.getMessage());
+		}
+		return message;
 	}
 
 }
