@@ -290,8 +290,23 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public String deleteFacultyByName(String fname) throws FacultyException {
-		// TODO Auto-generated method stub
-		return null;
+		String message="Faculty Not Deleted.......";
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("delete from faculty where fname=?");
+			ps.setString(1, fname);
+			
+			int x=ps.executeUpdate();
+			if(x>0) {
+				message="Faculty Deleted Sucessfully.....";
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FacultyException(e.getMessage());
+		}
+		return message;
 	}
 
 }

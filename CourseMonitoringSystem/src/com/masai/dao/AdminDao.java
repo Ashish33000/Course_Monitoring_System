@@ -5,10 +5,12 @@ import java.util.List;
 import com.masai.exception.AdminException;
 import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
+import com.masai.exception.CoursePlanException;
 import com.masai.exception.FacultyException;
 import com.masai.model.Admin;
 import com.masai.model.Batch;
 import com.masai.model.Course;
+import com.masai.model.CoursePlan;
 import com.masai.model.Faculty;
 import com.masai.model.ReportForBatchDto;
 
@@ -35,8 +37,9 @@ public interface AdminDao {
 	public List<Faculty> viewAllFacultyDetails() throws FacultyException;
 	public String deleteFacultyByName(String fname) throws FacultyException;
 
-	
-	
+	//coursePlan
+	public String createCoursePlan(CoursePlan cp) throws CoursePlanException;
+	public List<CoursePlan> viewAllCoursePlanDetails() throws CoursePlanException;
 	
 
 }
