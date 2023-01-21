@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.masai.exception.CoursePlanException;
 import com.masai.exception.FacultyException;
 import com.masai.model.CoursePlan;
 import com.masai.model.Faculty;
@@ -16,7 +15,7 @@ import com.masai.utility.DBUtil;
 public class FacultyDaoImpl implements FacultyDao {
 
 	@Override
-	public Faculty login(String username, String password) throws FacultyException {
+	public Faculty loginFaculty(String username, String password) throws FacultyException {
 		Faculty faculty=null;
 		try(Connection conn=DBUtil.provideConnection()) {
 			PreparedStatement ps=conn.prepareStatement("select * from faculty where email=? and password=?");
@@ -25,7 +24,7 @@ public class FacultyDaoImpl implements FacultyDao {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
 				faculty=new Faculty();
-				faculty.setFname(rs.getString("name"));
+				faculty.setFname(rs.getString("fname"));
 			}
 			
 		} catch (SQLException e) {
