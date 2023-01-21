@@ -10,10 +10,12 @@ import java.util.List;
 import com.masai.exception.AdminException;
 import com.masai.exception.BatchException;
 import com.masai.exception.CourseException;
+import com.masai.exception.CoursePlanException;
 import com.masai.exception.FacultyException;
 import com.masai.model.Admin;
 import com.masai.model.Batch;
 import com.masai.model.Course;
+import com.masai.model.CoursePlan;
 import com.masai.model.Faculty;
 import com.masai.model.ReportForBatchDto;
 import com.masai.utility.DBUtil;
@@ -305,6 +307,79 @@ public class AdminDaoImpl implements AdminDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new FacultyException(e.getMessage());
+		}
+		return message;
+	}
+
+	@Override
+	public String createCoursePlan(CoursePlan cp) throws CoursePlanException {
+		String message="CoursePlan Not Created.......";
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("insert into coursePlan(bid,dayNumber,topic,status) values(?,?,?,?)");
+			ps.setInt(1, cp.getBid());			
+			ps.setInt(2,cp.getDayNumber());
+			ps.setString(3, cp.getTopic());		
+			ps.setString(4, cp.getStatus());
+		
+			
+			
+			int x=ps.executeUpdate();
+			if(x>0) {
+				message="CoursePlan Created Sucessfully.....";
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CoursePlanException(e.getMessage());
+		}
+		return message;
+	}
+
+	@Override
+	public List<CoursePlan> viewAllCoursePlanDetails() throws CoursePlanException {
+		List<CoursePlan> cp =new ArrayList<>();
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("select * from coursePlan");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				CoursePlan cps=new CoursePlan();
+				cps.setCpid(rs.getInt("cpid"));
+				cps.setBid(rs.getInt("bid"));
+				cps.setTopic(rs.getString("topic"));
+				cps.setStatus(rs.getString("status"));
+				cp.add(cps);
+			
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CoursePlanException(e.getMessage());
+		}
+		
+		return cp;
+	}
+
+	@Override
+	public String deleteCoursePlanBycpid(int cpid) throws CoursePlanException {
+		String message="CoursePlan Not Deleted.......";
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("delete from coursePlan where cpid=?");
+			ps.setInt(1, cpid);
+			
+			int x=ps.executeUpdate();
+			if(x>0) {
+				message="CoursePlan Deleted Sucessfully.....";
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CoursePlanException(e.getMessage());
 		}
 		return message;
 	}
