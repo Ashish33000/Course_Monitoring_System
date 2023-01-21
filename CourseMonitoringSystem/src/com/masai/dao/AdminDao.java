@@ -40,6 +40,7 @@ public interface AdminDao {
 	//coursePlan
 	public String createCoursePlan(CoursePlan cp) throws CoursePlanException;
 	public List<CoursePlan> viewAllCoursePlanDetails() throws CoursePlanException;
+	public String deleteCoursePlanBycpid(int cpid)throws CoursePlanException;
 	
 
 }
