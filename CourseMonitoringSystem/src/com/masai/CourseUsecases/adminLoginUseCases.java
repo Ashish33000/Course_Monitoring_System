@@ -9,48 +9,25 @@ import com.masai.model.Admin;
 
 public class adminLoginUseCases {
 
-	public static void main(String[] args) {
-		System.out.println("Enter Login Details");
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	public static boolean login() {
+		boolean flag=false;
 		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Faculty Username");
+		String uername=sc.next();
+		System.out.println("Enter Faculty Password");
+		String password=sc.next();
 		
-		AdminDao dao=new AdminDaoImpl();
-	
-			System.out.println("Enter Admin Username");
-			String uername=sc.next();
-			System.out.println("Enter Admin Password");
-			String password=sc.next();
-		
-			try {
-				Admin admin=dao.loginAdmin(uername, password);
-				System.out.println("Welcome:  "+admin.getName());
-			} catch (AdminException e) {
-				System.out.println(e.getMessage());
-			}
-			
-			try { 
-				Thread.sleep(60000);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-		
-		System.out.println("Do you want to LogOut(Y)");
-		String res=sc.next();
-		if(res.equalsIgnoreCase("Y")) {
-			System.out.println("Thank You");
-			return;
-		}else {
-			System.out.println("Welcome");
-		
+		try {
+			AdminDao dao=new AdminDaoImpl();
+			Admin admin=dao.loginAdmin(uername, password);
+			flag=true;
+			System.out.println("Welcome: "+admin.getName());
+		} catch (AdminException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
+		return flag;
+		
 	}
 
 }

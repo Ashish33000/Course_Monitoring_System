@@ -11,30 +11,28 @@ import com.masai.model.Faculty;
 
 public class facultyLoginUseCases {
 
-	public static void main(String[] args) {
-		System.out.println("Enter Faculty Login Details");
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	public static boolean login() {
+		boolean flag=false;
 		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Faculty Username");
+		String uername=sc.next();
+		System.out.println("Enter Faculty Password");
+		String password=sc.next();
 		
-		    FacultyDao dao=new FacultyDaoImpl();
-	
-			System.out.println("Enter Faculty Username");
-			String uername=sc.next();
-			System.out.println("Enter Faculty Password");
-			String password=sc.next();
+		
+		try {
+			FacultyDao dao=new FacultyDaoImpl();
+			Faculty fac=dao.loginFaculty(uername, password);
+			flag=true;
+			System.out.println("Welcome: "+fac.getFname());
 			
-			try {
-				Faculty fac=dao.loginFaculty(uername, password);
-				System.out.println("Welcome: "+fac.getFname());
-			} catch (FacultyException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (FacultyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return flag;
+	
 
 	}
 
