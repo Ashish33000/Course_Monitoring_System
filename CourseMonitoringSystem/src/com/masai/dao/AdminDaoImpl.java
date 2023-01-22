@@ -17,7 +17,8 @@ import com.masai.model.Batch;
 import com.masai.model.Course;
 import com.masai.model.CoursePlan;
 import com.masai.model.Faculty;
-import com.masai.model.ReportForBatchDto;
+import com.masai.model.ReportDayWiseDTO;
+import com.masai.model.ReportForBatchDTO;
 import com.masai.utility.DBUtil;
 
 public class AdminDaoImpl implements AdminDao {
@@ -227,12 +228,6 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		return message;
 	}
-
-	@Override
-	public List<ReportForBatchDto> coursePlanReportForBatch() throws BatchException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 //faculty
 	@Override
 	public String createFaculty(Faculty faculty) throws FacultyException {
@@ -440,6 +435,85 @@ public class AdminDaoImpl implements AdminDao {
 		}
 		
 		return message;
+	}
+
+	@Override
+	public List<ReportDayWiseDTO> daywisePlanforBatch() throws CoursePlanException {
+		List<ReportDayWiseDTO> list=new ArrayList<>();
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("select f.fid,f.fname,c.cid,c.cname,b.bid,b.bname,cp.dayNumber,cp.status from coursePlan cp INNER JOIN batch b on cp.bid=b.bid INNER JOIN course c on c.cid=b.cid INNER JOIN faculty f on f.fid=b.fid group by bid");			
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					int FID=rs.getInt("fid");
+					String FN=rs.getString("fname");
+					int CID=rs.getInt("cid");
+					String CN=rs.getString("cname");
+					int BID=rs.getInt("bid");
+					String BN=rs.getString("bname");
+					int DN=rs.getInt("dayNumber");
+					String status=rs.getString("status");
+					ReportDayWiseDTO dto=new ReportDayWiseDTO();
+					dto.setFid(FID);
+					dto.setFname(FN);
+					dto.setCid(CID);
+					dto.setCname(CN);
+					dto.setBid(BID);
+					dto.setBname(BN);
+					dto.setDayNumber(DN);
+					dto.setStatus(status);
+					list.add(dto);
+					
+					
+				}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new CoursePlanException(e.getMessage());
+		}
+		return list;
+	}
+
+	@Override
+	public List<ReportForBatchDTO> coursePlanReportForBatch() throws BatchException {
+		List<ReportForBatchDTO> list=new ArrayList<>();
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("select f.fid,f.fname,c.cid,c.cname,b.bid,b.bname,cp.cpid,cp.status from coursePlan cp INNER JOIN batch b on cp.bid=b.bid INNER JOIN course c on c.cid=b.cid INNER JOIN faculty f on f.fid=b.fid group by bid");			
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					while(rs.next()) {
+						int FID=rs.getInt("fid");
+						String FN=rs.getString("fname");
+						int CID=rs.getInt("cid");
+						String CN=rs.getString("cname");
+						int BID=rs.getInt("bid");
+						String BN=rs.getString("bname");
+						int CPID=rs.getInt("cpid");
+						String status=rs.getString("status");
+						ReportForBatchDTO dto=new ReportForBatchDTO();
+						dto.setFid(FID);
+						dto.setFname(FN);
+						dto.setCid(CID);
+						dto.setCname(CN);
+						dto.setBid(BID);
+						dto.setBname(BN);
+						dto.setCpid(CPID);
+						dto.setStatus(status);
+						list.add(dto);
+						
+						
+					}
+					
+					
+					
+				}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BatchException(e.getMessage());
+		}
+		return list;
 	}
 
 }
