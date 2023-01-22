@@ -146,9 +146,11 @@ public class Main {
 						System.out.println();
 						System.out.println("Do You Want to Exit(Y/N)");
 						String s=sc.next();
-						if(s.equalsIgnoreCase("N")) {
+						if(s.compareToIgnoreCase("N")==0) {
 				          System.out.println("Thank You");
 				          break;
+						}else {
+							continue;
 						}
 						
 						
@@ -189,11 +191,13 @@ public class Main {
 						System.out.println();
 						System.out.println("Do You Want to Exit(Y/N)");
 						String s=sc.next();
-						if(s.equalsIgnoreCase("N")) {
+						if(s.compareToIgnoreCase("N")==0) {
 				          System.out.println("Thank You");
 				          break;
-						}
+						}else {
+							continue;
 						
+						}
 					}
 					
 				}
