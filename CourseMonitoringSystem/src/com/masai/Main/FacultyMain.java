@@ -14,22 +14,19 @@ public class FacultyMain {
 		
 		System.out.println("welcome Faculty");
 	
-		System.out.println("\n1.Login Faculty\n2.View All Course\n3.dayWise Planneer\n4.change Password");
+		System.out.println("\n1.View All Course\n2.dayWise Planneer\n3.change Password");
 		int x=sc.nextInt();
 		switch(x) {
+		
 		case 1:{
-			facultyLoginUseCases.main(args);
-			break;
-		}
-		case 2:{
 			viewCoursePlanFacultyUseCases.main(args);
 			break;
 		}
-		case 3: {
+		case 2: {
 			dayWisePlannerUsecases.main(args);
 			break;
 		}
-		case 4:{
+		case 3:{
 			changeFacultyPassword.main(args);
 			break;
 		}
