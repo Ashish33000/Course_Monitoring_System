@@ -24,7 +24,7 @@ public class ReportdayWiseDTOUsecases {
 				System.out.println("courseplan status: "+e.getStatus());
 				System.out.println("******************************************");
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

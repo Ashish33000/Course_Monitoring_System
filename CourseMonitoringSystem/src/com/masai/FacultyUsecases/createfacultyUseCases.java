@@ -34,9 +34,10 @@ public class createfacultyUseCases {
 			Faculty fac=new Faculty();
 			fac.setFname(name);
 			fac.setAddress(ads);
+			fac.setMobile(mob);
 			fac.setEmail(emails);
 			fac.setPassword(pass);
-			fac.setMobile(mob);
+			
 			try {
 				String result=dao.createFaculty(fac);
 				System.out.println(result);

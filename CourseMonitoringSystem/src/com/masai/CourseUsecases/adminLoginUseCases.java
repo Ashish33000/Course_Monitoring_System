@@ -23,8 +23,7 @@ public class adminLoginUseCases {
 			flag=true;
 			System.out.println("Welcome: "+admin.getName());
 		} catch (AdminException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return flag;
 		

@@ -244,8 +244,6 @@ public class AdminDaoImpl implements AdminDao {
 			int x=ps.executeUpdate();
 			if(x>0) {
 				message="Faculty Created Sucessfully.....";
-			}else {
-				throw new FacultyException("invalid course and facultyId");
 			}
 			
 			
@@ -268,6 +266,7 @@ public class AdminDaoImpl implements AdminDao {
 				faculty.setFid(rs.getInt("fid"));
 				faculty.setFname(rs.getString("fname"));
 				faculty.setAddress(rs.getString("address"));
+				faculty.setMobile(rs.getString("mobile"));
 				faculty.setEmail(rs.getString("email"));
 				faculty.setPassword(rs.getString("password"));	
 				
