@@ -21,6 +21,14 @@ Features:
 
 4)Here, admin and faculty perform CURD (create record/row, update the record, read/view ,delete.)
 
+SNAPSHOT FROM CONSOLE
+ <img src="https://user-images.githubusercontent.com/87129673/213911582-5f86ef1b-eb07-49b9-b008-cfe7f81c38aa.PNG" alt="">
+ 
+  <img src="https://user-images.githubusercontent.com/87129673/213911595-717fe0f3-d9ce-476b-829a-24a8f732e6cb.PNG" alt="">
+  
+   <img src="https://user-images.githubusercontent.com/87129673/213911608-9c88e43c-016e-4400-b1ae-47794eb8c6ce.PNG" alt="">
+
+
 
 
 
