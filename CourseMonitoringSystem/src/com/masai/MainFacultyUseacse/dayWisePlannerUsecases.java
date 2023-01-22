@@ -1,60 +1,41 @@
 package com.masai.MainFacultyUseacse;
 
-import java.util.Scanner;
+import java.util.List;
 
 import com.masai.dao.FacultyDao;
 import com.masai.dao.FacultyDaoImpl;
 import com.masai.exception.FacultyException;
-import com.masai.model.CoursePlan;
+import com.masai.model.ReportForBatchDTO;
 
 public class dayWisePlannerUsecases {
 
 	public static void main(String[] args) {
-		System.out.println("Enter Courseplan Details");
+		
+		FacultyDao dao=new FacultyDaoImpl();
 		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace( );
-		}
-       Scanner sc=new Scanner(System.in);  
-       FacultyDao dao=new FacultyDaoImpl();
-       while(true) {
-			System.out.println("Enter name of Batchid");
-			int bids=sc.nextInt();
-			System.out.println("Enter dayNumber");
-			int dn=sc.nextInt();
-			System.out.println("Enter Courseplan topic");
-			String top=sc.next();
-			System.out.println("Enter Batch duration");
-			String duration=sc.next();
-			System.out.println("Enter courseplan Status");
-			String stat=sc.next();
-			CoursePlan cps=new CoursePlan();
-			cps.setBid(bids);
-			cps.setDayNumber(dn);
-			cps.setTopic(top);
-			cps.setStatus(stat);		
-			
-		   try {
-			String result=dao.dayWisePlanner(cps);
-			System.out.println(result);
+			List<ReportForBatchDTO> list=dao.daywisePlanner();
+			list.forEach(e->{
+				System.out.println("Faculty id: "+e.getFid());
+				System.out.println("Faculty Name: "+e.getFname());
+				System.out.println("course id: "+e.getCid());
+				System.out.println("course Name: "+e.getCname());
+				System.out.println("Batch  id: "+e.getBid());
+				System.out.println("Batch Name: "+e.getBname());
+				System.out.println( "course palan ID: "+e.getCpid());
+				System.out.println("courseplan status: "+e.getStatus());
+				System.out.println("******************************************");
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
 		} catch (FacultyException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		   
+			System.out.println(e.getMessage());
+		}	
 		
-			System.out.println("Do You want to Register More CoursePlan?(Y/N)");
-			
-			String res=sc.next();
-			if(res.equalsIgnoreCase("N")) {
-				System.out.println("Thank You for Registration");
-				break;
-			}
-			
-		}
-
 
 	}
 

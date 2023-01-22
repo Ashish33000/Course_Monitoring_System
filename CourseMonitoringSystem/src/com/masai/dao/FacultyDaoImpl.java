@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.masai.exception.BatchException;
 import com.masai.exception.FacultyException;
 import com.masai.model.CoursePlan;
 import com.masai.model.Faculty;
+import com.masai.model.ReportDayWiseDTO;
+import com.masai.model.ReportForBatchDTO;
 import com.masai.utility.DBUtil;
 
 public class FacultyDaoImpl implements FacultyDao {
@@ -80,29 +83,46 @@ public class FacultyDaoImpl implements FacultyDao {
 	}
 
 	@Override
-	public String dayWisePlanner(CoursePlan cp) throws FacultyException {
-		String message="Daywise Planner Not Created.......";
-		try(Connection conn=DBUtil.provideConnection()) {
-			PreparedStatement ps=conn.prepareStatement("insert into coursePlan(bid,dayNumber,topic,status) values(?,?,?,?)");
-			ps.setInt(1, cp.getBid());			
-			ps.setInt(2,cp.getDayNumber());
-			ps.setString(3, cp.getTopic());		
-			ps.setString(4, cp.getStatus());
+	public List<ReportForBatchDTO> daywisePlanner() throws FacultyException {
 		
-			
-			
-			int x=ps.executeUpdate();
-			if(x>0) {
-				message="DaywisePlanner Created Sucessfully.....";
-			}
-			
+		List<ReportForBatchDTO> list=new ArrayList<>();
+		try(Connection conn=DBUtil.provideConnection()) {
+			PreparedStatement ps=conn.prepareStatement("select f.fid,f.fname,c.cid,c.cname,b.bid,b.bname,cp.cpid,cp.status from courseplan cp INNER JOIN batch b ON cp.bid=b.bid INNER JOIN course c ON c.cid=b.cid INNER JOIN faculty f ON f.fid=b.fid group by bid");			
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					int FID=rs.getInt("fid");
+					String FN=rs.getString("fname");
+					int CID=rs.getInt("cid");
+					String CN=rs.getString("cname");
+					int BID=rs.getInt("bid");
+					String BN=rs.getString("bname");
+					int CPID=rs.getInt("cpid");
+					String status=rs.getString("status");
+					ReportForBatchDTO dto=new ReportForBatchDTO();
+					dto.setFid(FID);
+					dto.setFname(FN);
+					dto.setCid(CID);
+					dto.setCname(CN);
+					dto.setBid(BID);
+					dto.setBname(BN);
+					dto.setCpid(CPID);
+					dto.setStatus(status);
+					list.add(dto);				
+					
+					
+				}
 			
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 			throw new FacultyException(e.getMessage());
 		}
-		return message;
+		return list;
 	}
+
+
+	
+
+
 
 }
