@@ -11,6 +11,7 @@ So the Automated Course Monitoring System will keep the records of all the cours
 daywise update for every batch. It will also help the faculty head to maintain the course plan.
 
 Tech Stack:JAVA,JDBC,MYSQL
+
 Features:
 
 1)Basic authentication of various user accounts (admin, faculty).
