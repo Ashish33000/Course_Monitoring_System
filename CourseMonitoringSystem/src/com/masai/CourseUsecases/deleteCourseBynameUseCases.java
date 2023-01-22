@@ -33,7 +33,7 @@ public class deleteCourseBynameUseCases {
 			System.out.println("Do You want to Delete More Courses?(Y/N)");
 			String res=sc.next();
 			if(res.equalsIgnoreCase("N")) {
-				System.out.println("Thank You for Registration");
+				System.out.println("Thank You ");
 				break;
 			}
 		 
