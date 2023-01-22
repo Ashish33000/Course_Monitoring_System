@@ -478,39 +478,34 @@ public class AdminDaoImpl implements AdminDao {
 	public List<ReportForBatchDTO> coursePlanReportForBatch() throws BatchException {
 		List<ReportForBatchDTO> list=new ArrayList<>();
 		try(Connection conn=DBUtil.provideConnection()) {
-			PreparedStatement ps=conn.prepareStatement("select f.fid,f.fname,c.cid,c.cname,b.bid,b.bname,cp.cpid,cp.status from coursePlan cp INNER JOIN batch b on cp.bid=b.bid INNER JOIN course c on c.cid=b.cid INNER JOIN faculty f on f.fid=b.fid group by bid");			
+			PreparedStatement ps=conn.prepareStatement("select f.fid,f.fname,c.cid,c.cname,b.bid,b.bname,cp.cpid,cp.status from courseplan cp INNER JOIN batch b ON cp.bid=b.bid INNER JOIN course c ON c.cid=b.cid INNER JOIN faculty f ON f.fid=b.fid group by bid");			
 				ResultSet rs=ps.executeQuery();
 				while(rs.next()) {
-					while(rs.next()) {
-						int FID=rs.getInt("fid");
-						String FN=rs.getString("fname");
-						int CID=rs.getInt("cid");
-						String CN=rs.getString("cname");
-						int BID=rs.getInt("bid");
-						String BN=rs.getString("bname");
-						int CPID=rs.getInt("cpid");
-						String status=rs.getString("status");
-						ReportForBatchDTO dto=new ReportForBatchDTO();
-						dto.setFid(FID);
-						dto.setFname(FN);
-						dto.setCid(CID);
-						dto.setCname(CN);
-						dto.setBid(BID);
-						dto.setBname(BN);
-						dto.setCpid(CPID);
-						dto.setStatus(status);
-						list.add(dto);
-						
-						
-					}
-					
+					int FID=rs.getInt("fid");
+					String FN=rs.getString("fname");
+					int CID=rs.getInt("cid");
+					String CN=rs.getString("cname");
+					int BID=rs.getInt("bid");
+					String BN=rs.getString("bname");
+					int CPID=rs.getInt("cpid");
+					String status=rs.getString("status");
+					ReportForBatchDTO dto=new ReportForBatchDTO();
+					dto.setFid(FID);
+					dto.setFname(FN);
+					dto.setCid(CID);
+					dto.setCname(CN);
+					dto.setBid(BID);
+					dto.setBname(BN);
+					dto.setCpid(CPID);
+					dto.setStatus(status);
+					list.add(dto);				
 					
 					
 				}
 			
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+		
 			throw new BatchException(e.getMessage());
 		}
 		return list;

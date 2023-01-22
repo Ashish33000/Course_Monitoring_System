@@ -32,7 +32,7 @@ public class reportwiseBatchDTO {
 			});
 		} catch (BatchException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 	}
