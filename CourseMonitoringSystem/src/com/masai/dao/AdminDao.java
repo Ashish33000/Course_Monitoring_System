@@ -12,7 +12,8 @@ import com.masai.model.Batch;
 import com.masai.model.Course;
 import com.masai.model.CoursePlan;
 import com.masai.model.Faculty;
-import com.masai.model.ReportForBatchDto;
+import com.masai.model.ReportForBatchDTO;
+import com.masai.model.ReportDayWiseDTO;
 
 public interface AdminDao {
 	//AdminLogin
@@ -28,7 +29,8 @@ public interface AdminDao {
 	public String createBatch(Batch batch) throws BatchException;
 	public List<Batch> viewAllBatchDetails()throws BatchException;
 	public String deleteBatchByName(String bname) throws BatchException;
-	public List<ReportForBatchDto> coursePlanReportForBatch()throws BatchException;
+	
+	public List<ReportForBatchDTO> coursePlanReportForBatch()throws BatchException;
 	public String  updateBatch(String name,int bid)throws BatchException;
 	
 	
@@ -42,6 +44,7 @@ public interface AdminDao {
 	public List<CoursePlan> viewAllCoursePlanDetails() throws CoursePlanException;
 	public String deleteCoursePlanBycpid(int cpid)throws CoursePlanException;
 	public String  updateFCoursePlan(String status,int cpid)throws CoursePlanException;
+	public List<ReportDayWiseDTO> daywisePlanforBatch()throws CoursePlanException;
 	
 
 }

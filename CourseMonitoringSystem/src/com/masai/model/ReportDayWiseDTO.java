@@ -1,6 +1,6 @@
 package com.masai.model;
 
-public class ReportForBatchDto {
+public class ReportDayWiseDTO {
 	//faculty table
 		private int fid;
 		private String fname;
@@ -13,10 +13,10 @@ public class ReportForBatchDto {
 		//course plan
 		private int dayNumber;
 		private String Status;
-		public ReportForBatchDto() {
+		public ReportDayWiseDTO() {
 			// TODO Auto-generated constructor stub
 		}
-		public ReportForBatchDto(int fid, String fname, int cid, String cname, int bid, String bname, int dayNumber,
+		public ReportDayWiseDTO(int fid, String fname, int cid, String cname, int bid, String bname, int dayNumber,
 				String status) {
 			super();
 			this.fid = fid;
