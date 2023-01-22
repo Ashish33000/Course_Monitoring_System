@@ -17,14 +17,14 @@ public class updateBatchUsecases {
 			e1.printStackTrace();
 		}
 		 Scanner sc=new Scanner(System.in); 
-		 System.out.println("Enter course name to Update Batch");
+		 System.out.println("Enter batch name to Update Batch");
 		String BatchName=sc.next();
 		 System.out.println("Enter batchId to Update batch");
 		 int batchIdId=sc.nextInt();
 		 
 		 AdminDao dao=new AdminDaoImpl();
 		 try {
-			String res=dao.updateBatch(BatchName, batchIdId);
+			String res=dao.updateBatch(batchIdId, BatchName);
 			System.out.println(res);
 		} catch (BatchException e) {
 			// TODO Auto-generated catch block

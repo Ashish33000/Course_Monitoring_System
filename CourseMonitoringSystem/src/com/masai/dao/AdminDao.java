@@ -21,7 +21,7 @@ public interface AdminDao {
 	//course
 	public String createCourse(Course course) throws CourseException;
 	public boolean isCourseAvailable(String cname) throws CourseException;
-	public String  updateCourse(String name,int cid)throws CourseException;
+	public String  updateCourse(int cid,String name)throws CourseException;
 	public List<Course> viewAllCourseDetails()throws CourseException;
 	public String courseDeleteByName(String cname)throws CourseException;
 	
@@ -31,7 +31,7 @@ public interface AdminDao {
 	public String deleteBatchByName(String bname) throws BatchException;
 	
 	public List<ReportForBatchDTO> coursePlanReportForBatch()throws BatchException;
-	public String  updateBatch(String name,int bid)throws BatchException;
+	public String  updateBatch(int bid,String name)throws BatchException;
 	
 	
 	//faculty
