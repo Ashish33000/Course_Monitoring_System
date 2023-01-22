@@ -20,7 +20,7 @@ public interface AdminDao {
 	//course
 	public String createCourse(Course course) throws CourseException;
 	public boolean isCourseAvailable(String cname) throws CourseException;
-	public String  updateCourse(String name,Course course)throws CourseException;
+	public String  updateCourse(String name,int cid)throws CourseException;
 	public List<Course> viewAllCourseDetails()throws CourseException;
 	public String courseDeleteByName(String cname)throws CourseException;
 	
@@ -29,18 +29,19 @@ public interface AdminDao {
 	public List<Batch> viewAllBatchDetails()throws BatchException;
 	public String deleteBatchByName(String bname) throws BatchException;
 	public List<ReportForBatchDto> coursePlanReportForBatch()throws BatchException;
-	
+	public String  updateBatch(String name,int bid)throws BatchException;
 	
 	
 	//faculty
 	public String createFaculty(Faculty faculty) throws FacultyException;
 	public List<Faculty> viewAllFacultyDetails() throws FacultyException;
 	public String deleteFacultyByName(String fname) throws FacultyException;
-
+	public String  updateFaculty(String name,int fid)throws FacultyException;
 	//coursePlan
 	public String createCoursePlan(CoursePlan cp) throws CoursePlanException;
 	public List<CoursePlan> viewAllCoursePlanDetails() throws CoursePlanException;
 	public String deleteCoursePlanBycpid(int cpid)throws CoursePlanException;
+	public String  updateFCoursePlan(String status,int cpid)throws CoursePlanException;
 	
 
 }

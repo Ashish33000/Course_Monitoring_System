@@ -18,9 +18,22 @@ public class updateCourseByNameUsecases {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		 Scanner sc=new Scanner(System.in);      
+		 Scanner sc=new Scanner(System.in); 
+		 System.out.println("Enter course name to Update Course");
+		String courseName=sc.next();
+		 System.out.println("Enter courseId to Update Course");
+		 int courseId=sc.nextInt();
+		 
 		 AdminDao dao=new AdminDaoImpl();
-		 Course courses=new Course();
+		 try {
+			String res=dao.updateCourse(courseName, courseId);
+			System.out.println(res);
+		} catch (CourseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 
 	
 		
 
