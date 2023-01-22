@@ -87,19 +87,21 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public String updateCourse(String name,int cid) throws CourseException {
+	public String updateCourse(int cid,String name) throws CourseException {
 		String message="Course not updated";
 		try(Connection conn=DBUtil.provideConnection()) {
-			PreparedStatement ps=conn.prepareStatement("update course set cname=?, where cid=?");			
+			PreparedStatement ps=conn.prepareStatement("update course set cname=? where cid=?");
+			
 			ps.setString(1,name);
 			ps.setInt(2, cid);
+			
 			
 		int x=ps.executeUpdate();
 			if(x>0) message="Course Updated Sucessfully...";					
 			
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			throw new CourseException(e.getMessage());
 		}
 		
@@ -377,12 +379,13 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public String updateBatch(String name,int bid) throws BatchException {
+	public String updateBatch(int bid,String name) throws BatchException {
 		String message="Batch not updated";
 		try(Connection conn=DBUtil.provideConnection()) {
-			PreparedStatement ps=conn.prepareStatement("update batch set bname=?, where bid=?");			
+			PreparedStatement ps=conn.prepareStatement("update batch set bname=? where bid=?");	
 			ps.setString(1,name);
-			ps.setInt(2, bid);		
+			ps.setInt(2, bid);
+				
 			
 		int x=ps.executeUpdate();
 			if(x>0) message="Course Updated Sucessfully...";					
@@ -400,9 +403,9 @@ public class AdminDaoImpl implements AdminDao {
 	public String updateFaculty(String name,int fid) throws FacultyException {
 		String message="Faculty not updated";
 		try(Connection conn=DBUtil.provideConnection()) {
-			PreparedStatement ps=conn.prepareStatement("update faculty set fname=?, where fid=?");			
+			PreparedStatement ps=conn.prepareStatement("update faculty set fname=? where fid=?");			
 			ps.setString(1,name);
-			ps.setInt(2, fid);	
+			ps.setInt(2, fid);
 			
 		int x=ps.executeUpdate();
 			if(x>0) message="Faculty Updated Sucessfully...";					
@@ -420,7 +423,7 @@ public class AdminDaoImpl implements AdminDao {
 	public String updateFCoursePlan(String status,int cpid) throws CoursePlanException {
 		String message="CoursePlan not updated";
 		try(Connection conn=DBUtil.provideConnection()) {
-			PreparedStatement ps=conn.prepareStatement("update coursePlan set status=?, where cpid=?");			
+			PreparedStatement ps=conn.prepareStatement("update coursePlan set status=? where cpid=?");			
 			ps.setString(1,status);
 			ps.setInt(2, cpid);		
 			
