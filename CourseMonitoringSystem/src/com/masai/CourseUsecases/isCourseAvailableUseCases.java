@@ -36,7 +36,7 @@ public class isCourseAvailableUseCases {
 			System.out.println("Do You want find more course Avaiblity?(Y/N)");
 			String res=sc.next();
 			if(res.equalsIgnoreCase("N")) {
-				System.out.println("Thank You for Registration");
+				System.out.println("Thank You");
 				break;
 			}
 			
