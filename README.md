@@ -2,7 +2,7 @@
 COURSE MONITORING SYSTEM
 
 Description:Course Monitoring System is Used to monitor the course in organization,helps System administrator monitor their Infarastructure
-In Educational Institute There are several courses running parallel everyday.
+
 In an educational Institute there are several courses running parallel every day. 
 
 For every course there are several batches at same/different time. Every course has a session wise/day wise schedule. 
